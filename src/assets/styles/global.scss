@@ -1,0 +1,8 @@
+//公共样式表
+@import './reset.scss';
+
+$r:375 / 10 ;
+//函数用来接收px返回rem
+@function px2rem($px){
+  @return $px / $r + rem
+}
