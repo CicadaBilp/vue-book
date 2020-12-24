@@ -5,4 +5,52 @@ $r:375 / 10 ;
 //函数用来接收px返回rem
 @function px2rem($px){
   @return $px / $r + rem
+};
+
+//定义共用的样式,
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+//标题出现隐藏的动画
+.slide-down-enter, .slide-down-leave-to {
+  transform: translate3d(0, -100%, 0)
+}
+.slide-down-enter-to, .slide-down-leave, .slide-up-enter-to, .slide-up-leave {
+  transform: translate3d(0, 0, 0)
+}
+.slide-down-enter-active, 
+.slide-down-leave-active, 
+.slide-up-enter-active, 
+.slide-up-leave-active, 
+.fade-enter-active, 
+.fade-leave-active, 
+.slide-right-enter-active, 
+.slide-right-leave-active,
+.family-slide-up-enter-active,
+.family-slide-up-leave-active
+ {
+  transition: all .3s linear;
+}
+.slide-up-enter, .slide-up-leave-to {
+  transform: translate3d(0, px2rem(138), 0)
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave {
+  opacity: 1;
+}
+.slide-right-enter, .slide-right-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+.family-slide-up-enter, .family-slide-up-leave-to{
+  transform: translate3d(0,100%,0);
+  opacity: 0;
+}
+.family-slide-up-enter-to, .family-slide-up-leave{
+  transform: translate3d(0,0,0);
+  opacity: 1;
 }

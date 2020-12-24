@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <div class="test">你还好</div>
     <router-view/>
   </div>
 </template>
@@ -21,8 +16,10 @@
 
 </script>
 
-<style scoped>
-  .test{
-    font-size: 1rem;
+<style lang='scss' scoped>
+  #app{
+    width:100%;
+    height:100%;
+    overflow: hidden;
   }
 </style>
