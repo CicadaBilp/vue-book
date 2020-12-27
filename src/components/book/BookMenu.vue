@@ -22,6 +22,8 @@
     </transition>
     <book-setting-font></book-setting-font>
     <setting-font-family></setting-font-family>
+    <book-setting-theme></book-setting-theme>
+    <book-progress></book-progress>
   </div>
 </template>
 
@@ -29,6 +31,8 @@
 import { bookMixin } from "../../utils/mixin";
 import BookSettingFont from "./BookSettingFont";
 import SettingFontFamily from './SettingFontFamily'
+import BookSettingTheme from './BookSettingTheme'
+import BookProgress from './BookProgress.vue';
 
 
 export default {
@@ -41,7 +45,9 @@ export default {
   },
   components:{
     BookSettingFont,
-    SettingFontFamily
+    SettingFontFamily,
+    BookSettingTheme,
+    BookProgress
   }
 };
 </script>

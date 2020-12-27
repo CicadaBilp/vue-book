@@ -1,0 +1,97 @@
+<template>
+  <transition name="slide-up">
+    <div class="setting-wrapper" v-show="isShowMenu && showSetting===1">
+      <div class="setting-theme" >
+        <div
+          class="setting-theme-item"
+          v-for="(item, index) in themeList"
+          :key="index"
+          @click="setTheme(index)"
+        >
+          <div
+            class="preview"
+            :style="{ background: item.style.body.background }"
+            :class="{ 'selected': item.name === defaultTheme }"
+          ></div>
+          <div class="text" :class="{ 'selected': item.name === defaultTheme }">
+            {{ item.alias }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script>
+import {bookMixin} from '../../utils/mixin'
+import {themeList} from '../../utils/book'
+import {setlocalTheme} from '../../utils/localStorage'
+export default {
+  mixins:[bookMixin],
+  computed:{
+    //导入方法返回主题数组
+    themeList(){
+      return themeList(this)
+    }
+  },
+  methods:{
+    //点击选择主题的处理函数
+    setTheme(index){
+      //通过传入的index,取出对应主题
+      const theme = this.themeList[index]
+      //将选择的主题存入缓存
+      setlocalTheme(this.fileName,theme.name)
+      console.log(theme.name)
+      //设置vuex中主题名称为点击的主题名称,并调用方法设置电子书主题为该主题
+      this.setDefaultTheme(theme.name).then(() => // this.currentBook.rendition.themes.select(theme.name)
+        //调用方法引入主题对应的全局css更改全局主题
+        this.initGlobalStyle())
+       this.currentBook.rendition.themes.select(theme.name)
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+@import "../../assets/styles/global.scss";
+
+.setting-wrapper {
+    position: absolute;
+    bottom: px2rem(48);
+    left: 0;
+    z-index: 101;
+    width: 100%;
+    height: px2rem(90);
+    background: white;
+    box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, 0.15);
+    
+    .setting-theme {
+      height: 100%;
+      display: flex;
+      .setting-theme-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: px2rem(5);
+        box-sizing: border-box;
+        .preview {
+          flex: 1;
+          border: px2rem(1) solid #ccc;
+          box-sizing: border-box;
+          &.selected{
+            box-shadow: 0 px2rem(4) px2rem(6) 0 rgba(0,0,0,0.5);
+          }
+        }
+        .text {
+          flex: 0 0 px2rem(20);
+          font-size: px2rem(14);
+          color: #ccc;
+          @include center;
+          &.selected {
+            color: chocolate;
+          }
+        }
+      }
+    }
+  }
+</style>

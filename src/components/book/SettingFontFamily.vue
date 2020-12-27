@@ -5,7 +5,7 @@
       <div class="title-icon" @click="hide">
         <span class="icon-down2"></span>
       </div>
-      <span class="title-text">选择字体</span>
+      <span class="title-text">{{$t('book.selectFont')}}</span>
     </div>
     <div class="font-family-list-wrapper">
       <div class="family-list-item" @click="toggleFamily(item.font)" v-for="(item,index) in fontFamilyList" :key="index">
@@ -22,7 +22,7 @@
 <script>
 import { bookMixin } from '../../utils/mixin';
 import {FONT_FAMILY_LIST} from '../../utils/book'
-import {getLocalStorage,setLocalStorage} from '../../utils/localStorage'
+import {getFontFamily,setFontFamily} from '../../utils/localStorage'
 
 export default {
   mixins:[bookMixin],
@@ -34,6 +34,7 @@ export default {
     //点击选择字体类型
     toggleFamily(fontFamily){ 
       this.setDefaultFontFamily(fontFamily)
+      setFontFamily(this.fileName,fontFamily)
       if(fontFamily === 'Default'){
         this.currentBook.rendition.themes.font('Times New Roman')
       }else{

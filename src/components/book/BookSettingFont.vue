@@ -48,6 +48,7 @@
 <script>
 import { bookMixin } from '../../utils/mixin'
 import { FONT_SIZE_LIST } from '../../utils/book'
+import {setFontSize} from '../../utils/localStorage'
 export default {
   mixins:[bookMixin],
   data() {
@@ -62,6 +63,8 @@ export default {
       this.currentBook.rendition.themes.fontSize(fontSize)
       //更改默认字体的值为点击的值,来更改黑点的位置
       this.setDefaultFont(fontSize)
+      //存入localStorage
+      setFontSize(this.fileName,fontSize)
     },
     //点击字体设置,弹出字体设置组件
     showFontFamily(){

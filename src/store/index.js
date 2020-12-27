@@ -12,6 +12,10 @@ export default new Vuex.Store({
     currentBook:null,  //当前电子书实例
     defaultFontFamily:'Default', //字体设置中的默认字体
     isShowFontFamily:false,  //字体类型设置的弹窗是否显示
+    defaultTheme:'Default',  //当前主题
+    progress:0,  //进度条值
+    bookAvailable:false,  //电子书是否分页解析完成
+    section:0,  //当前章节
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -34,6 +38,18 @@ export default new Vuex.Store({
     },
     'SET_ISSHOWFONTFAMILY':(state,isShowFontFamily) => {
       state.isShowFontFamily = isShowFontFamily
+    },
+    'SET_DEFAULTTHEME':(state,defaultTheme) => {
+      state.defaultTheme = defaultTheme
+    },
+    'SET_PROGRESS':(state,progress) => {
+      state.progress = progress
+    },
+    'SET_BOOKAVAILABLE':(state,bookAvailable) => {
+      state.bookAvailable = bookAvailable
+    },
+    'SET_SECTION':(state,newSection) => {
+      state.section = newSection
     }
   },
   actions: {
@@ -57,6 +73,18 @@ export default new Vuex.Store({
     },
     setShowFontFamily:({ commit },isShowFontFamily) => {
       return commit('SET_ISSHOWFONTFAMILY',isShowFontFamily)
+    },
+    setDefaultTheme:({commit},defaultTheme) => {
+      return commit('SET_DEFAULTTHEME',defaultTheme)
+    },
+    setProgress:({commit},progress) => {
+      return commit('SET_PROGRESS',progress)
+    },
+    setBookAvailable:({commit},bookAvailable) => {
+      return commit('SET_BOOKAVAILABLE',bookAvailable)
+    },
+    setSection:({commit},newSection) => {
+      return commit('SET_SECTION',newSection)
     }
   },
   modules: {

@@ -13,6 +13,16 @@ $r:375 / 10 ;
   justify-content: center;
   align-self: center;
 }
+@mixin centers{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin ellipsis{
+  text-overflow:ellipsis ;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
 //标题出现隐藏的动画
 .slide-down-enter, .slide-down-leave-to {
@@ -30,8 +40,7 @@ $r:375 / 10 ;
 .slide-right-enter-active, 
 .slide-right-leave-active,
 .family-slide-up-enter-active,
-.family-slide-up-leave-active
- {
+.family-slide-up-leave-active{
   transition: all .3s linear;
 }
 .slide-up-enter, .slide-up-leave-to {
