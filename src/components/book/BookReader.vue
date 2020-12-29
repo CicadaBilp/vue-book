@@ -1,12 +1,18 @@
 <template>
   <div class="book-reader">
     <div id="read"></div>
+    <div class="book-reader-mask" 
+        @click="onMaskClick"
+        @touchmove="move"
+        @touchend="moveEnd"
+    >
+    </div>
   </div>
 </template>
 
 <script>
 import { bookMixin } from "../../utils/mixin";
-import { themeList } from "../../utils/book";
+import { themeList ,flatten} from "../../utils/book";
 import {
   getFontFamily,
   setFontFamily,
@@ -30,8 +36,7 @@ export default {
   methods: {
     //该函数,在派发action完成后调用,用来初始化路径下的电子书
     initEpub() {
-      const url =
-        process.env.VUE_APP_RES_URL + "/epub/" + this.fileName + ".epub";
+      const url = process.env.VUE_APP_RES_URL + "/epub/" + this.fileName + ".epub";
       //根据地址在nginx中访问到epub文件,生成实例
       this.book = new Epub(url);
       //派发action设置vuex中的currentBook
@@ -40,6 +45,8 @@ export default {
       this.initRender();
       //翻页触屏事件
       this.initGesture();
+      //解析电子书信息
+      this.parseBook()
       //book对象的ready钩子函数会在初始化完成后调用,此时再进行分页设置
       this.book.ready.then(() => {
         //进行简单分页,每页默认750字,再乘以窗口与375的比和字体大小与16的比
@@ -122,6 +129,34 @@ export default {
         event.stopPropagation();
       });
     },
+    //解析电子书图片,作者,目录等信息
+    parseBook(){
+      //获取电子书封面图片
+      this.book.loaded.cover.then(cover => {
+        this.book.archive.createUrl(cover).then(url => {
+          this.setCover(url)
+        })
+      })
+      //获取电子书作者,书名的信息
+      this.book.loaded.metadata.then(metadata => {
+        this.setMetadata(metadata)
+      })
+      //获取电子书目录信息
+      this.book.loaded.navigation.then(nav => {
+        const navItem = flatten(nav.toc)
+        function find(item,level=0){
+          if(!item.parent){
+            return level
+          }else{
+            return find(navItem.filter(parentItem => parentItem.id === item.parent)[0],++level)
+          }
+        }
+        navItem.forEach(item => {
+          item.level = find(item)
+        })
+        this.setNavigation(navItem)
+      })
+    },
     //上一页
     prevPage() {
       if (this.render) {
@@ -135,14 +170,6 @@ export default {
         this.render.next().then(() => this.reloadedProgress());
         this.hideTitleMenu();
       }
-    },
-    //触屏非翻页,切换显示隐藏
-    toggleTitleMenu() {
-      this.setShowMenu();
-      //派发不显示设置面板
-      this.setShowSetting(-1);
-      //派发关闭字体设置弹窗的显示
-      this.setShowFontFamily(false);
     },
     //当翻页时隐藏标题和菜单
     hideTitleMenu() {
@@ -194,6 +221,35 @@ export default {
       //调用方法设置主题为vuex中的默认主题
       this.book.rendition.themes.select(theme);
     },
+    onMaskClick(e){
+      const offsetX = e.offsetX
+      const width = window.innerWidth
+      if(offsetX > 0 && offsetX < width * 0.3){
+        this.prevPage()
+      }else if(offsetX > 0 && offsetX > width * 0.7){
+        this.nextPage()
+      }else{
+        this.toggleTitleMenu()
+      }
+    },
+    //给朦版注册move事件,当移动时实时获得相距初始位置的移动距离更新到vuex中的offsetY
+    move(e){
+      // console.log(e.changedTouches[0].clientY);
+      let offsetY = 0
+      if(this.firstOffsetY){
+        offsetY = e.changedTouches[0].clientY - this.firstOffsetY
+        this.setOffsetY(offsetY)
+      }else{
+        this.firstOffsetY = e.changedTouches[0].clientY
+      }
+      e.preventDefault()
+      e.stopPropagation()
+    },
+    //注册moveEnd事件,当松手不再移动时,重置vuex中offsetY为0和初始位置为null
+    moveEnd(e){
+      this.setOffsetY(0)
+      this.firstOffsetY = null
+    }
   },
   mounted() {
     //派发一个action,参数为动态路由中传入的参数(电子书在服务器存放的文件位置),以此更改fileName的值,
@@ -204,5 +260,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "../../assets/styles/global.scss";
+.book-reader{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  .book-reader-mask{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 150;
+    background: transparent;
+  }
+}
 </style>

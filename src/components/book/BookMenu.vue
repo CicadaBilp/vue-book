@@ -24,6 +24,7 @@
     <setting-font-family></setting-font-family>
     <book-setting-theme></book-setting-theme>
     <book-progress></book-progress>
+    <book-slide></book-slide>
   </div>
 </template>
 
@@ -33,6 +34,8 @@ import BookSettingFont from "./BookSettingFont";
 import SettingFontFamily from './SettingFontFamily'
 import BookSettingTheme from './BookSettingTheme'
 import BookProgress from './BookProgress.vue';
+import BookSlide from './BookSlide.vue';
+
 
 
 export default {
@@ -47,7 +50,8 @@ export default {
     BookSettingFont,
     SettingFontFamily,
     BookSettingTheme,
-    BookProgress
+    BookProgress,
+    BookSlide
   }
 };
 </script>

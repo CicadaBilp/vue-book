@@ -16,6 +16,10 @@ export default new Vuex.Store({
     progress:0,  //进度条值
     bookAvailable:false,  //电子书是否分页解析完成
     section:0,  //当前章节
+    cover:null, //电子书封面图片路径
+    metadata:null, //电子书作者和书名信息
+    navigation:null,  //电子书解析完成的目录信息
+    offsetY:0,  //下拉偏移量
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -50,6 +54,18 @@ export default new Vuex.Store({
     },
     'SET_SECTION':(state,newSection) => {
       state.section = newSection
+    },
+    'SET_COVER':(state,cover) => {
+      state.cover = cover
+    },
+    'SET_METADATA':(state,metadata) => {
+      state.metadata = metadata
+    },
+    'SET_NAVIGATION':(state,navigation) => {
+      state.navigation = navigation
+    },
+    'SET_OFFSETY':(state,offsetY) => {
+      state.offsetY = offsetY
     }
   },
   actions: {
@@ -85,6 +101,18 @@ export default new Vuex.Store({
     },
     setSection:({commit},newSection) => {
       return commit('SET_SECTION',newSection)
+    },
+    setCover:({commit},cover) => {
+      return commit('SET_COVER',cover)
+    },
+    setMetadata:({commit},metadata) => {
+      return commit('SET_METADATA',metadata)
+    },
+    setNavigation:({commit},navigation) => {
+      return commit('SET_NAVIGATION',navigation)
+    },
+    setOffsetY:({commit},offsetY) => {
+      return commit('SET_OFFSETY',offsetY)
     }
   },
   modules: {

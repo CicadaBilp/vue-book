@@ -18,10 +18,23 @@ $r:375 / 10 ;
   justify-content: center;
   align-items: center;
 }
+//对于元素内文字单行不换行带省略号这个设置,需要指定元素的宽度才可以
 @mixin ellipsis{
   text-overflow:ellipsis ;
   overflow: hidden;
   white-space: nowrap;
+}
+//显示任意行,在结尾处省略号
+@mixin ellipsis2($line){
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  //显示两行
+  -webkit-line-clamp: $line;
+  //正常换行
+  white-space:normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break:break-all;
 }
 
 //标题出现隐藏的动画
@@ -40,7 +53,9 @@ $r:375 / 10 ;
 .slide-right-enter-active, 
 .slide-right-leave-active,
 .family-slide-up-enter-active,
-.family-slide-up-leave-active{
+.family-slide-up-leave-active
+.table-slide-right-enter-active,
+.table-slide-right-leave-active{
   transition: all .3s linear;
 }
 .slide-up-enter, .slide-up-leave-to {
@@ -60,6 +75,14 @@ $r:375 / 10 ;
   opacity: 0;
 }
 .family-slide-up-enter-to, .family-slide-up-leave{
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+.table-slide-right-enter, .table-slide-right-leave-to{
+  transform: translate3d(-100%,0,0);
+  opacity: 0;
+}
+.table-slide-right-enter-to, .table-slide-right-leave{
   transform: translate3d(0,0,0);
   opacity: 1;
 }

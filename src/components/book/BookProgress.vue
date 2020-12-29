@@ -37,19 +37,20 @@
 
 <script>
 import {bookMixin} from '../../utils/mixin'
-import {setLocation,getReadTime} from '../../utils/localStorage'
+import {setLocation} from '../../utils/localStorage'
 export default {
   mixins:[bookMixin],
   computed:{
     getSectionName(){
-      if(this.section){
-        const sectionInfo = this.currentBook.section(this.section)
-        if(sectionInfo && sectionInfo.href){
-          // console.log(this.currentBook.navigation.get(sectionInfo.href).label);
-          return this.currentBook.navigation.get(sectionInfo.href).label
-        }
-      }
-      return ''
+      // if(this.section){
+      //   const sectionInfo = this.currentBook.section(this.section)
+      //   if(sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation){
+      //     // console.log(this.currentBook.navigation.get(sectionInfo.href).label);
+      //     return this.currentBook.navigation.get(sectionInfo.href).label
+      //   }
+      // }
+      // return ''
+      return this.section ? this.navigation[this.section].label : ''
     },
   },
   methods:{
@@ -102,14 +103,6 @@ export default {
       console.log(this.section);
       if(this.section < this.currentBook.spine.length-1 && this.bookAvailable){
         this.setSection(this.section + 1).then(() => this.displaySection())
-      }
-    },
-    getReadTimeText(){
-      const readTime = getReadTime(this.fileName)
-      if(!readTime){
-        return 0
-      }else{
-        return '已阅读' + Math.ceil(readTime / 60) + '分钟'
       }
     }
   },
