@@ -20,6 +20,7 @@ export default new Vuex.Store({
     metadata:null, //电子书作者和书名信息
     navigation:null,  //电子书解析完成的目录信息
     offsetY:0,  //下拉偏移量
+    isMark:false //当前页是否为书签
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -66,6 +67,9 @@ export default new Vuex.Store({
     },
     'SET_OFFSETY':(state,offsetY) => {
       state.offsetY = offsetY
+    },
+    'SET_ISMARK':(state,ismark) => {
+      state.isMark = ismark
     }
   },
   actions: {
@@ -113,6 +117,9 @@ export default new Vuex.Store({
     },
     setOffsetY:({commit},offsetY) => {
       return commit('SET_OFFSETY',offsetY)
+    },
+    setIsMark:({commit},ismark) => {
+      return commit('SET_ISMARK',ismark)
     }
   },
   modules: {

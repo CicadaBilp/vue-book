@@ -38,6 +38,7 @@
 import { bookMixin } from "../../utils/mixin";
 import BookLoading from './BookLoading.vue';
 import BookSlideContentVue from "./BookSlideContent.vue";
+import BookSlideMark from './BookSlideMark'
 export default {
   components: { BookLoading },
   mixins: [bookMixin],
@@ -45,7 +46,7 @@ export default {
     return {
       currentTab: 1,
       content: BookSlideContentVue,
-      bookmark: null,
+      bookmark: BookSlideMark,
     };
   },
   methods: {
@@ -62,7 +63,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 300;
+  z-index: 202;
   display: flex;
   width: 100%;
   height: 100%;

@@ -76,6 +76,12 @@ export function getReadTime(fileName){
 export function setReadTime(fileName,readTime){
   return setBookObject(fileName,'read-time',readTime)
 }
-
+//读写书签
+export function getBookMark(fileName){
+  return getBookObject(fileName,'book-mark')
+}
+export function setBookMark(fileName,bookMark){
+  return setBookObject(fileName,'book-mark',bookMark)
+}
 
 

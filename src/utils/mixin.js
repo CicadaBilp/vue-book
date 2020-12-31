@@ -2,7 +2,7 @@
 
 import { mapState, mapActions } from 'vuex'
 import { addCss, removeAllCss } from './book'
-import { setLocation, getReadTime } from './localStorage'
+import { setLocation, getReadTime, getBookMark } from './localStorage'
 
 export const bookMixin = {
   computed: {
@@ -22,7 +22,8 @@ export const bookMixin = {
         'cover',
         'metadata',
         'navigation',
-        'offsetY'
+        'offsetY',
+        'isMark'
       ]
     )
   },
@@ -43,7 +44,8 @@ export const bookMixin = {
         'setCover',
         'setMetadata',
         'setNavigation',
-        'setOffsetY'
+        'setOffsetY',
+        'setIsMark'
       ]
     ),
     //添加准备的全局样式
@@ -79,6 +81,16 @@ export const bookMixin = {
         this.setSection(currLocation.start.index)
         //将当前页首的cfi信息存入缓存,以便刷新页面时拿到上次阅读的位置
         setLocation(this.fileName, startCfi)
+        const bookmark = getBookMark(this.fileName)
+        if(bookmark){
+          if(bookmark.some(item => item.cfi === startCfi)){
+            this.setIsMark(true)
+          }else{
+            this.setIsMark(false)
+          }  
+        }else{
+          this.setIsMark(false)
+        }
       }
     },
     //点击切换标题和底部菜单的显示,并总是将showSetting设为-1,showFontFamily设为false
