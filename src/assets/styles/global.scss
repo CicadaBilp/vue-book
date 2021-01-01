@@ -18,6 +18,11 @@ $r:375 / 10 ;
   justify-content: center;
   align-items: center;
 }
+@mixin left{
+  display: flex;
+  justify-content:flex-start;
+  align-items:center;
+}
 //对于元素内文字单行不换行带省略号这个设置,需要指定元素的宽度才可以
 @mixin ellipsis{
   text-overflow:ellipsis ;
@@ -36,6 +41,21 @@ $r:375 / 10 ;
   text-overflow: ellipsis;
   word-break:break-all;
 }
+@mixin columnLeft{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+// .icon{
+//   color: #666;
+//   font-size: px2rem(16);
+// }
+// .title{
+//   color:#666;
+//   font-size: px2rem(16);
+//   font-weight: bold;
+// }
 
 //标题出现隐藏的动画
 .slide-down-enter, .slide-down-leave-to {
@@ -55,7 +75,11 @@ $r:375 / 10 ;
 .family-slide-up-enter-active,
 .family-slide-up-leave-active
 .table-slide-right-enter-active,
-.table-slide-right-leave-active{
+.table-slide-right-leave-active,
+.title-move-enter-active,
+.title-move-leave-active
+.hot-search-move-enter-active,
+.hot-search-move-leave-active{
   transition: all .3s linear;
 }
 .slide-up-enter, .slide-up-leave-to {
@@ -74,7 +98,9 @@ $r:375 / 10 ;
   transform: translate3d(0,100%,0);
   opacity: 0;
 }
-.family-slide-up-enter-to, .family-slide-up-leave{
+.family-slide-up-enter-to, .family-slide-up-leave,
+.title-move-enter-to, .title-move-leave
+.hot-search-move-enter-to, .hot-search-move-leave{
   transform: translate3d(0,0,0);
   opacity: 1;
 }
@@ -86,3 +112,16 @@ $r:375 / 10 ;
   transform: translate3d(0,0,0);
   opacity: 1;
 }
+
+//书城标题最终消失的位置(向下偏移10px)
+.title-move-enter, .title-move-leave-to{
+  transform: translate3d(0,px2rem(10),0);
+  opacity: 0;
+}
+
+//热门搜索的展示与隐藏动画
+.hot-search-move-enter, .hot-search-move-leave-to{
+  transform: translate3d(0,px2rem(30),0);
+  opacity: 0;
+}
+

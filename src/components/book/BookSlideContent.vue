@@ -25,8 +25,12 @@
         <img :src="cover" class="slide-contents-book-img" />
       </div>
       <div class="slide-contents-book-info-wrapper">
-        <div class="slide-contents-book-title">{{ metadata.title }}</div>
-        <div class="slide-contents-book-author">{{ metadata.creator }}</div>
+        <div class="slide-contents-book-title">
+          <span class="slide-contents-book-title-text">{{ metadata.title }}</span>
+        </div>
+        <div class="slide-contents-book-author">
+          <span class="slide-contents-book-author-text">{{ metadata.creator }}</span>
+        </div>
       </div>
       <div class="slide-contents-book-progress-wrapper">
         <div class="slide-contents-book-progress">
@@ -171,16 +175,21 @@ export default {
         font-size: px2rem(14);
         //对于元素内文字单行不换行带省略号这个设置,需要指定元素的宽度才可以
         //屏幕总宽375减去各种margin,padding得到bookinfo的宽度为153.75px
-        width: px2rem(153.75);
+        // width: px2rem(153.75);
         line-height: px2rem(16);
-
-        @include ellipsis2(2);
+        @include left;
+        .slide-contents-book-title-text{
+          @include ellipsis2(2);
+        }   
       }
       .slide-contents-book-author {
         font-size: px2rem(12);
-        width: px2rem(153.75);
+        // width: px2rem(153.75);
         margin-top: px2rem(5);
-        @include ellipsis;
+        @include left;
+        .slide-contents-book-author-text{
+          @include ellipsis;
+        }
       }
     }
     .slide-contents-book-progress-wrapper {

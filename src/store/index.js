@@ -19,8 +19,9 @@ export default new Vuex.Store({
     cover:null, //电子书封面图片路径
     metadata:null, //电子书作者和书名信息
     navigation:null,  //电子书解析完成的目录信息
-    offsetY:0,  //下拉偏移量
-    isMark:false //当前页是否为书签
+    offsetY:0,  //电子书组件下拉偏移量或home组件中的滚动距离
+    isMark:false, //当前页是否为书签
+    hotSearchOffsetY:0,  //热门搜索组件内的scroll滚动距离
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -70,6 +71,9 @@ export default new Vuex.Store({
     },
     'SET_ISMARK':(state,ismark) => {
       state.isMark = ismark
+    },
+    'SET_HOTSEARCHOFFSETY':(state,offsetY) => {
+      state.hotSearchOffsetY = offsetY
     }
   },
   actions: {
@@ -120,6 +124,9 @@ export default new Vuex.Store({
     },
     setIsMark:({commit},ismark) => {
       return commit('SET_ISMARK',ismark)
+    },
+    setHotSearchOffsetY:({commit},offsetY) => {
+      return commit('SET_HOTSEARCHOFFSETY',offsetY)
     }
   },
   modules: {

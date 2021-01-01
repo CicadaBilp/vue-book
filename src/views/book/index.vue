@@ -4,6 +4,8 @@
     <book-reader></book-reader>
     <book-menu></book-menu>
     <book-mark></book-mark>
+    <book-head></book-head>
+    <book-footer></book-footer>
   </div>
 </template>
 
@@ -14,6 +16,8 @@ import BookMenu from "../../components/book/BookMenu";
 import BookMark from "../../components/book/BookMark";
 import { getReadTime, setReadTime } from "../../utils/localStorage";
 import { bookMixin } from "../../utils/mixin";
+import BookHead from '../../components/book/BookHead.vue';
+import BookFooter from '../../components/book/BookFooter.vue';
 export default {
   mixins: [bookMixin],
   components: {
@@ -21,6 +25,8 @@ export default {
     BookTitle,
     BookMenu,
     BookMark,
+    BookHead,
+    BookFooter
   },
   methods: {
     //在进入阅读器组件时开启计时器

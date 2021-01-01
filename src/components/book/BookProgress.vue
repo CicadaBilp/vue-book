@@ -40,19 +40,6 @@ import {bookMixin} from '../../utils/mixin'
 import {setLocation} from '../../utils/localStorage'
 export default {
   mixins:[bookMixin],
-  computed:{
-    getSectionName(){
-      // if(this.section){
-      //   const sectionInfo = this.currentBook.section(this.section)
-      //   if(sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation){
-      //     // console.log(this.currentBook.navigation.get(sectionInfo.href).label);
-      //     return this.currentBook.navigation.get(sectionInfo.href).label
-      //   }
-      // }
-      // return ''
-      return this.section ? this.navigation[this.section].label : ''
-    },
-  },
   methods:{
     //进度条改变的处理函数
     onProgressChange(progress){

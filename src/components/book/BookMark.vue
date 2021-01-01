@@ -84,7 +84,9 @@ export default {
     }
   },
   methods: {
+    //添加本页为书签
     addMark() {
+      //先从缓存中获取书签数组
       this.boomark = getBookMark(this.fileName);
       if (!this.bookmark) {
         this.bookmark = [];
@@ -104,14 +106,18 @@ export default {
           cfi: currentLocation.start.cfi,
           text: text,
         })
+        //将计算好的本页书签信息push到书签数组,并存入缓存中
         setBookMark(this.fileName, this.bookmark);
       })  
     },
+    //删除本页书签
     removeMark() {
       const currentLocation = this.currentBook.rendition.currentLocation();
       const cfi = currentLocation.start.cfi;
+      //拿到缓存的书签数组
       this.bookmark = getBookMark(this.fileName);
       if (this.bookmark) {
+        //从书签数组中过滤出含有本页cfi信息的元素,设为新书签数组
         this.bookmark = this.bookmark.filter((item) => item.cfi !== cfi);
         setBookMark(this.fileName, this.bookmark);
         this.setIsMark(false);
@@ -125,6 +131,7 @@ export default {
     threshold() {
       return realPx(55);
     },
+    //书签组件固定定位的样式
     fixedStyle() {
       return {
         position: "fixed",

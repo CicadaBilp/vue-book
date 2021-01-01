@@ -25,7 +25,10 @@ export const bookMixin = {
         'offsetY',
         'isMark'
       ]
-    )
+    ),
+    getSectionName(){
+      return this.section ? this.navigation[this.section].label : ''
+    }
   },
   methods: {
     ...mapActions(
@@ -109,5 +112,20 @@ export const bookMixin = {
         return '已阅读' + Math.ceil(readTime / 60) + '分钟'
       }
     }
+  }
+}
+
+export const homeMixin = {
+  computed:{
+    ...mapState([
+      'offsetY',
+      'hotSearchOffsetY'
+    ])
+  },
+  methods:{
+    ...mapActions([
+      'setOffsetY',
+      'setHotSearchOffsetY'
+    ])
   }
 }

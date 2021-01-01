@@ -62,7 +62,7 @@ export default {
       padding: px2rem(15) 0;
       box-sizing: border-box;
       .slide-bokmark-item-icon{
-        @include center
+        @include center;
         .icon-bookmark{
           width: px2rem(20);
           height: px2rem(20);
