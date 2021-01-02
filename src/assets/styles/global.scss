@@ -1,5 +1,7 @@
 //公共样式表
 @import './reset.scss';
+@import './mixin.scss';
+@import './home.scss';
 
 $r:375 / 10 ;
 //函数用来接收px返回rem
@@ -7,55 +9,6 @@ $r:375 / 10 ;
   @return $px / $r + rem
 };
 
-//定义共用的样式,
-@mixin center {
-  display: flex;
-  justify-content: center;
-  align-self: center;
-}
-@mixin centers{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-@mixin left{
-  display: flex;
-  justify-content:flex-start;
-  align-items:center;
-}
-//对于元素内文字单行不换行带省略号这个设置,需要指定元素的宽度才可以
-@mixin ellipsis{
-  text-overflow:ellipsis ;
-  overflow: hidden;
-  white-space: nowrap;
-}
-//显示任意行,在结尾处省略号
-@mixin ellipsis2($line){
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  //显示两行
-  -webkit-line-clamp: $line;
-  //正常换行
-  white-space:normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break:break-all;
-}
-@mixin columnLeft{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-// .icon{
-//   color: #666;
-//   font-size: px2rem(16);
-// }
-// .title{
-//   color:#666;
-//   font-size: px2rem(16);
-//   font-weight: bold;
-// }
 
 //标题出现隐藏的动画
 .slide-down-enter, .slide-down-leave-to {

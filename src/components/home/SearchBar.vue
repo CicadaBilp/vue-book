@@ -9,7 +9,7 @@
           <div class="title-text-wrapper">
             <span class="title-text title">{{ $t("home.title") }}</span>
           </div>
-          <div class="title-icon-shake-wrapper">
+          <div class="title-icon-shake-wrapper" @click="showFlapCard">
             <span class="icon-shake"></span>
           </div>
         </div>
@@ -72,6 +72,9 @@ export default {
     }
   },
   methods: {
+    showFlapCard(){
+      this.setFlapCard(true)
+    },
     hideTitle() {
       this.titleVisible = false;
     },

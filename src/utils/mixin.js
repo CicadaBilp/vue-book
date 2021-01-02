@@ -119,13 +119,15 @@ export const homeMixin = {
   computed:{
     ...mapState([
       'offsetY',
-      'hotSearchOffsetY'
+      'hotSearchOffsetY',
+      'flapCardVisible'
     ])
   },
   methods:{
     ...mapActions([
       'setOffsetY',
-      'setHotSearchOffsetY'
+      'setHotSearchOffsetY',
+      'setFlapCard'
     ])
   }
 }

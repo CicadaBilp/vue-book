@@ -36,18 +36,22 @@
       <div>dsd</div>
       <div>dsd</div>
     </scroll>
+    <flap-card :data="random"></flap-card>
   </div>
 </template>
 
 <script>
 import Scroll from "../../components/common/Scroll";
+import FlapCard from '../../components/home/FlapCard.vue';
 import SearchBar from "../../components/home/SearchBar.vue";
 import { homeMixin } from "../../utils/mixin";
+import {home} from '../../api/store'
 export default {
   mixins: [homeMixin],
   components: {
     SearchBar,
     Scroll,
+    FlapCard
   },
   methods:{
     //scroll组件注册的onScroll事件的处理函数
@@ -64,14 +68,24 @@ export default {
   },
   data(){
     return{
-      scrollTop:88
+      scrollTop:88,
+      random:null
     }
+  },
+  mounted(){
+    home().then(res => {
+      if(res && res.status === 200){
+        const data = res.data
+        const resIndex = Math.floor(Math.random() * data.random.length)
+        this.random = data.random[resIndex]
+      }
+    })
   }
 };
 </script>
 
 <style scoped lang="scss">
-.store {
+.store-home {
   width: 100%;
   height: 100%;
 }

@@ -22,6 +22,7 @@ export default new Vuex.Store({
     offsetY:0,  //电子书组件下拉偏移量或home组件中的滚动距离
     isMark:false, //当前页是否为书签
     hotSearchOffsetY:0,  //热门搜索组件内的scroll滚动距离
+    flapCardVisible:false,  //是否显示随机推荐
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -74,6 +75,9 @@ export default new Vuex.Store({
     },
     'SET_HOTSEARCHOFFSETY':(state,offsetY) => {
       state.hotSearchOffsetY = offsetY
+    },
+    'SET_FLAPCAED':(state,flapCardVisible) => {
+      state.flapCardVisible = flapCardVisible
     }
   },
   actions: {
@@ -127,6 +131,9 @@ export default new Vuex.Store({
     },
     setHotSearchOffsetY:({commit},offsetY) => {
       return commit('SET_HOTSEARCHOFFSETY',offsetY)
+    },
+    setFlapCard:({commit},flapCardVisible) => {
+      return commit('SET_FLAPCAED',flapCardVisible)
     }
   },
   modules: {
