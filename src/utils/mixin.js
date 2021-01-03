@@ -26,7 +26,7 @@ export const bookMixin = {
         'isMark'
       ]
     ),
-    getSectionName(){
+    getSectionName() {
       return this.section ? this.navigation[this.section].label : ''
     }
   },
@@ -85,13 +85,13 @@ export const bookMixin = {
         //将当前页首的cfi信息存入缓存,以便刷新页面时拿到上次阅读的位置
         setLocation(this.fileName, startCfi)
         const bookmark = getBookMark(this.fileName)
-        if(bookmark){
-          if(bookmark.some(item => item.cfi === startCfi)){
+        if (bookmark) {
+          if (bookmark.some(item => item.cfi === startCfi)) {
             this.setIsMark(true)
-          }else{
+          } else {
             this.setIsMark(false)
-          }  
-        }else{
+          }
+        } else {
           this.setIsMark(false)
         }
       }
@@ -116,18 +116,46 @@ export const bookMixin = {
 }
 
 export const homeMixin = {
-  computed:{
+  computed: {
     ...mapState([
       'offsetY',
       'hotSearchOffsetY',
       'flapCardVisible'
     ])
   },
-  methods:{
+  methods: {
     ...mapActions([
       'setOffsetY',
       'setHotSearchOffsetY',
       'setFlapCard'
+    ]),
+    showBookDetail(book) {
+      this.$router.push({
+        path: '/store/detail',
+        query: {
+          fileName: book.fileName,
+          category: book.categoryText
+        }
+      })
+    }
+  }
+}
+
+export const storeShelfMixin = {
+  computed: {
+    ...mapState([
+      'isEditMode',
+      'shelfList',
+      'shelfSelected',
+      'shelfTitleVisible'
+    ])
+  },
+  methods:{
+    ...mapActions([
+      'setEditMode',
+      'setShelfList',
+      'setShelfSelected',
+      'setShelfTitleVisible'
     ])
   }
 }

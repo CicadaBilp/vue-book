@@ -21,8 +21,13 @@ export default new Vuex.Store({
     navigation:null,  //电子书解析完成的目录信息
     offsetY:0,  //电子书组件下拉偏移量或home组件中的滚动距离
     isMark:false, //当前页是否为书签
+
     hotSearchOffsetY:0,  //热门搜索组件内的scroll滚动距离
-    flapCardVisible:false,  //是否显示随机推荐
+    flapCardVisible:false,  //是否显示随机推荐页面
+    isEditMode:false,  //是否处于编辑书架状态
+    shelfList:[],  //书架列表
+    shelfSelected:[],  //书架已选择书籍列表
+    shelfTitleVisible:true  //是否显示书架页面标题
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -78,6 +83,18 @@ export default new Vuex.Store({
     },
     'SET_FLAPCAED':(state,flapCardVisible) => {
       state.flapCardVisible = flapCardVisible
+    },
+    'SET_ISEDITMODE':(state,isEditMode) => {
+      state.isEditMode = isEditMode
+    },
+    'SET_SHELFLIST':(state,shelfList) => {
+      state.shelfList = shelfList
+    },
+    'SET_SHELFSELECTED':(state,shelfSelected) => {
+      state.shelfSelected = shelfSelected
+    },
+    'SET_SHELFTITLEVISIBLE':(state,shelfTitleVisible) => {
+      state.shelfTitleVisible = shelfTitleVisible
     }
   },
   actions: {
@@ -134,7 +151,20 @@ export default new Vuex.Store({
     },
     setFlapCard:({commit},flapCardVisible) => {
       return commit('SET_FLAPCAED',flapCardVisible)
+    },
+    setEditMode:({commit},isEditMode) => {
+      return commit('SET_ISEDITMODE',isEditMode)
+    },
+    setShelfList:({commit},shelfList) => {
+      return commit('SET_SHELFLIST',shelfList)
+    },
+    setShelfSelected:({commit},shelfSelected) => {
+      return commit('SET_SHELFSELECTED',shelfSelected)
+    },
+    setShelfTitleVisible:({commit},shelfTitleVisible) => {
+      return commit('SET_SHELFTITLEVISIBLE',shelfTitleVisible)
     }
+
   },
   modules: {
   }

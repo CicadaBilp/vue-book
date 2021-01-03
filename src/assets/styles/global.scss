@@ -1,13 +1,16 @@
-//公共样式表
-@import './reset.scss';
-@import './mixin.scss';
-@import './home.scss';
-
 $r:375 / 10 ;
 //函数用来接收px返回rem
 @function px2rem($px){
   @return $px / $r + rem
 };
+
+
+
+@import './reset.scss';  //浏览器基础样式重置
+@import './mixin.scss';  //定义的mixin样式
+@import './home.scss';  //home页使用的一些样式
+
+
 
 
 //标题出现隐藏的动画

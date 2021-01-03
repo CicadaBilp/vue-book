@@ -1,3 +1,4 @@
+//翻转卡片对象数组
 export const flapCardList = [
   {
     r: 255,
@@ -55,7 +56,7 @@ export const flapCardList = [
     rotateDegree: 0
   }
 ]
-
+//传入id获取分类名
 export function getCategoryName(id) {
   switch (id) {
     case 1:
@@ -104,7 +105,7 @@ export function getCategoryName(id) {
       return 'Statistics'
   }
 }
-
+//传入id和vue实例获取书籍的中英文写法
 export function categoryText(category, vue) {
   switch (category) {
     case 1:
@@ -152,4 +153,29 @@ export function categoryText(category, vue) {
     case 22:
       return vue.$t('category.statistics')
   }
+}
+
+export const categoryList = {
+  'ComputerScience': 1,
+  'SocialSciences': 2,
+  'Economics': 3,
+  'Education': 4,
+  'Engineering': 5,
+  'Environment': 6,
+  'Geography': 7,
+  'History': 8,
+  'Laws': 9,
+  'LifeSciences': 10,
+  'Literature': 11,
+  'Biomedicine': 12,
+  'BusinessandManagement': 13,
+  'EarthSciences': 14,
+  'MaterialsScience': 15,
+  'Mathematics': 16,
+  'MedicineAndPublicHealth': 17,
+  'Philosophy': 18,
+  'Physics': 19,
+  'PoliticalScienceAndInternationalRelations': 20,
+  'Psychology': 21,
+  'Statistics': 22
 }

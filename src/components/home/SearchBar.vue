@@ -29,6 +29,7 @@
             :placeholder="$t('home.hint')"
             v-model="searchText"
             @click="showHotSearch"
+            @keyup.13.exact="search"
           />
         </div>
       </div>
@@ -108,7 +109,19 @@ export default {
         this.hideShadow()
         this.showTitle()
       }
-      this.hideHotSearch()
+      if(this.hotSearchVisible){
+        this.hideHotSearch()
+      }else{
+        this.$router.push('/store/shelf')
+      }
+    },
+    search(){
+      this.$router.push({
+        path:'/store/list',
+        query:{
+          keyword:this.searchText
+        }
+      })
     }
   },
 };
