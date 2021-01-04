@@ -338,7 +338,7 @@ export default {
           text-align: center;
           color: white;
           font-size: px2rem(14);
-          background:rgb(104, 104, 236);
+          background:$blue;
         }
 
     }

@@ -154,7 +154,7 @@ export function categoryText(category, vue) {
       return vue.$t('category.statistics')
   }
 }
-
+//书籍分类名与id对应的对象
 export const categoryList = {
   'ComputerScience': 1,
   'SocialSciences': 2,
@@ -178,4 +178,18 @@ export const categoryList = {
   'PoliticalScienceAndInternationalRelations': 20,
   'Psychology': 21,
   'Statistics': 22
+}
+//给书架数据中添加一个type为3的对象,表示该item展示添加书籍组件
+export function appendShelf(list){
+  list.push({
+    id:-1,
+    type:3
+  })
+  return list
+}
+
+export function gotoStoreHome(vue){
+  vue.$router.push({
+    path:'/store/home'
+  })
 }

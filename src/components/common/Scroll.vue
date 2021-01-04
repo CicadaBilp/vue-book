@@ -33,7 +33,7 @@ export default {
       const offsetY = e.target.scrollTop || window.pageYOffset || document.body.scrollTop
       this.$emit('onScroll',offsetY)
     },
-    //拿到滚动组件外层元素,根据传入的top和bottom属性计算并设置滚动容器的高度
+    //拿到滚动组件外层元素,根据传入的top和bottom更新计算并设置滚动容器的高度
     refresh(){
       if(this.$refs.scrollWrapper){
         this.$refs.scrollWrapper.style.height = window.innerHeight - realPx(this.top) - realPx(this.bottom) + 'px'
