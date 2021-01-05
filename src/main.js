@@ -10,6 +10,7 @@ import i18n from '../src/lang/index'
 // import './mock/index'
 //数组拓展方法
 import './utils/boost'
+import './utils/create-api'
 
 Vue.config.productionTip = false
 

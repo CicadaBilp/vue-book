@@ -83,5 +83,12 @@ export function getBookMark(fileName){
 export function setBookMark(fileName,bookMark){
   return setBookObject(fileName,'book-mark',bookMark)
 }
+//读写书架书籍
+export function getBookshelf(){
+  return setLocalStorage('shelf')
+}
+export function setBookShelf(shelf){
+  return setLocalStorage('shelf',shelf)
+}
 
 
