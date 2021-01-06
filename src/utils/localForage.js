@@ -22,11 +22,12 @@ export function removeLocalForage(key, cb, cb2) {
   })
 }
 
-export function clearLocalForage(cb, cb2) {
+export function clearLocalForage(cb) {
   localForage.clear().then(function() {
-    cb()
-  }).catch(function(err) {
-    cb2(err)
+    if(cb) cb()
+   })
+   .catch(function(err) {
+    if(cb2) cb2(err)
   })
 }
 

@@ -9,15 +9,16 @@ export function getLocalStorage(key) {
   return localStorage.get(key)
 }
 export function removeLocalStorage(key) {
-  return localStorage.remove(key)
+  return localStorage.delete(key)
 }
 export function clearLocalStorage() {
-  return localStorage.clear
+  return localStorage.clear()
 }
 
 
 export function setBookObject(fileName,bookKey, bookValue) {
   let book = getLocalStorage(fileName)
+
   if (!book) {
     book = {}
   }
@@ -85,7 +86,7 @@ export function setBookMark(fileName,bookMark){
 }
 //读写书架书籍
 export function getBookshelf(){
-  return setLocalStorage('shelf')
+  return getLocalStorage('shelf')
 }
 export function setBookShelf(shelf){
   return setLocalStorage('shelf',shelf)

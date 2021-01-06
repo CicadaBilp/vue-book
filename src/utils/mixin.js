@@ -3,6 +3,9 @@
 import { mapState, mapActions } from 'vuex'
 import { addCss, removeAllCss } from './book'
 import { setLocation, getReadTime, getBookMark } from './localStorage'
+import { appendShelf ,removeAddFromShelf,computId} from "./store";
+import { shelf } from "../api/store";
+import { getBookshelf, setBookShelf } from "./localStorage";
 
 export const bookMixin = {
   computed: {
@@ -148,7 +151,9 @@ export const storeShelfMixin = {
       'shelfList',
       'shelfSelected',
       'shelfTitleVisible',
-      'offsetY'
+      'offsetY',
+      'shelfCategory',
+      'currentType'
     ])
   },
   methods:{
@@ -157,7 +162,9 @@ export const storeShelfMixin = {
       'setShelfList',
       'setShelfSelected',
       'setShelfTitleVisible',
-      'setOffsetY'
+      'setOffsetY',
+      'setShelfCategory',
+      'setCurrentType'
     ]),
     showBookDetail(book) {
       this.$router.push({
@@ -167,6 +174,46 @@ export const storeShelfMixin = {
           category: book.categoryText
         }
       })
-    }
+    },
+    //获取书架全部图书
+    getShelfList() {
+      let shelfList = getBookshelf();
+      if (!shelfList) {
+        shelf().then((res) => {
+          console.log(res);
+          if (res.status === 200 && res.data && res.data.bookList) {
+            shelfList = appendShelf(res.data.bookList);
+            setBookShelf(shelfList);
+            return this.setShelfList(shelfList);
+          }
+        });
+      } else {
+        return this.setShelfList(shelfList);
+      }
+    },
+    getCategoryList(title){
+      this.getShelfList().then(() => {
+        const categoryList = this.shelfList.filter(book => book.type === 2 && book.title === title)[0]
+        this.setShelfCategory(categoryList)
+      })
+    },
+    moveOutGroup(f) {
+      console.log('aaa');
+      this.setShelfList(this.shelfList.map(book => {
+        if(book.type === 2 && book.itemList){
+          book.itemList = book.itemList.filter(book2 => !book2.selected)
+        }
+        return book
+      })).then(() => {
+        let  list = removeAddFromShelf(this.shelfList)
+        list = [].concat(list, ...this.shelfSelected) 
+        list = computId(appendShelf(list))
+        this.setShelfList(list).then(()=>{ 
+          this.simpleToast('移动成功') 
+          // this.onComplete() 
+          if(f) f()
+        })
+      })
+    },
   }
 }

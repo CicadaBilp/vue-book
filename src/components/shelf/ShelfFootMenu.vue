@@ -83,12 +83,15 @@ export default {
     },
     complete(){
       // setBookShelf(this.shelfList)
-      this.hidePopupMenu()
+      // this.hidePopupMenu()
+      this.popupMenu.hide()
       this.setEditMode(false)
 
     },
     hidePopupMenu(){
       this.popupMenu.hide()
+      this.setShelfSelected([])
+      this.setEditMode(false)
     },
     setPrivate(){
       let privated 
@@ -101,54 +104,38 @@ export default {
         book.private = privated
       })
       this.complete()
+      this.setShelfSelected(this.shelfSelected)
       setBookShelf(this.shelfList)
       this.simpleToast('设置成功') 
+      this.setShelfSelected([])
     },
     showPrivate(){
       this.popupMenu = this.popup({
         title:this.isPrivate ? '关闭后图书阅读记录将对外公开' : '开启后所选图书的阅读记录将不对外公开',
         btn:[
           {
-            text:this.isPrivate ? '关闭' : '开启',
-            click:() => {
-              this.setPrivate()
-            }
+            text:this.isPrivate ? '关闭' : '确定',
+            click:() => {this.setPrivate()}
           },
           {
             text:'取消',
-            click:() => {
-              this.hidePopupMenu()
-            }
+            click:() => {this.hidePopupMenu()}
           }
         ]
       }).show()
     },
     removeSelected(){
       Promise.all(this.shelfSelected.map(book => this.removeBook(book)))
-          .then(books => {
-            books.map(book => {
-              book.cache = false
-            })
-            setBookShelf(this.shelfList)
-          })
-
+      this.shelfSelected.forEach(book => book.cache = false)
     },
     removeBook(book){
       return new Promise((resolve,reject) => {
         removeLocalStorage(`${book.categoryText}/${book.fileName}`)
         removeLocalForage(`${book.fileName}`)
+        resolve(book)
       })
     },
     async setDownload(){
-      // let downloaded 
-      // if(this.isDownload){
-      //   downloaded = false
-      // }else{
-      //   downloaded = true
-      // }
-      // this.shelfSelected.forEach(book => {
-      //   book.cache = downloaded
-      // })
       this.complete()
       if(this.isDownload){
         this.removeSelected()
@@ -156,18 +143,21 @@ export default {
       }else{
         await this.downloadSelected()
         this.simpleToast('缓存成功')
-      }
-      
-      
-    },
-    
+      } 
+      this.setShelfSelected(this.shelfSelected)
+      setBookShelf(this.shelfList)  
+      this.setShelfSelected([])
+    },  
     async downloadSelected(){
+      console.log('dddd');
       for(let i = 0;i < this.shelfSelected.length;i++){
-        await this.downloadBook(this.shelfSelected[i]).then(book => {book.cache = true})
-      }
-      setBookShelf(this.shelfList)
+        let res = await this.downloadBook(this.shelfSelected[i])
+        res.cache = true
+        console.log(this.shelfSelected);
+      }    
     },
     downloadBook(book){
+      console.log('book');
       let text = ''
       const toast = this.toast({
         text
@@ -209,7 +199,7 @@ export default {
       })
       this.setShelfSelected([])
       this.complete()
-       setBookShelf(this.shelfList)
+      setBookShelf(this.shelfList)
       this.simpleToast('设置成功') 
     },
     showRemove(){
@@ -243,8 +233,12 @@ export default {
       switch (item.index){
         case 1:
           this.showPrivate()
+          break;
         case 2:
           this.showDownload()
+          break;
+        case 3:
+          this.dialog().show()
           break;
         case 4:
           this.showRemove()

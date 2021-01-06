@@ -1,6 +1,6 @@
 <template>
   <div class="store-shelf">
-    <shelf-title :title = "$t('shelf.title')"></shelf-title>
+    <shelf-title :title="shelfCategory.title" ></shelf-title>
     <scroll
       class="store-shelf-scroll-wrapper"
       :top="0"
@@ -8,8 +8,7 @@
       :bottom="scrollBottom"
       ref="scroll"
     >
-      <shelf-search></shelf-search>
-      <shelf-list :data="shelfList"></shelf-list>
+      <shelf-list :top="42" :data="shelfCategory.itemList"></shelf-list>
     </scroll>
     <shelf-foot-menu></shelf-foot-menu>
   </div>
@@ -18,18 +17,14 @@
 <script>
 import Scroll from "../../components/common/Scroll.vue";
 import ShelfTitle from "../../components/shelf/ShelfTitle";
-import ShelfSearch from "../../components/shelf/ShelfSearch";
 import ShelfList from "../../components/shelf/ShelfList";
 import ShelfFootMenu from "../../components/shelf/ShelfFootMenu.vue";
 import { storeShelfMixin } from "../../utils/mixin";
-
-
 export default {
   mixins: [storeShelfMixin],
   components: {
     ShelfTitle,
     Scroll,
-    ShelfSearch,
     ShelfList,
     ShelfFootMenu,
   },
@@ -53,14 +48,13 @@ export default {
     },
   },
   mounted() {
-    this.getShelfList();
-    this.setShelfCategory([])
-    this.setCurrentType(1)
+    this.getCategoryList(this.$route.query.title)
+    this.setCurrentType(2) //处于分组列表页
   },
-};
+}
 </script>
 
-<style scoped lang="scss">
+<style scoed lang="scss">
 @import "../../assets/styles/global";
 
 .store-shelf {

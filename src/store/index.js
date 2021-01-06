@@ -27,7 +27,9 @@ export default new Vuex.Store({
     isEditMode:false,  //是否处于编辑书架状态
     shelfList:[],  //书架列表
     shelfSelected:[],  //书架已选择书籍列表
-    shelfTitleVisible:true  //是否显示书架页面标题
+    shelfTitleVisible:true,  //是否显示书架页面标题
+    shelfCategory:[],  //书架分组图书的列表
+    currentType:1,  //在书架列表为1,在书架分组列表为2
   },
   mutations: {
     'SET_FILENAME':(state,newFileName) => {
@@ -95,6 +97,12 @@ export default new Vuex.Store({
     },
     'SET_SHELFTITLEVISIBLE':(state,shelfTitleVisible) => {
       state.shelfTitleVisible = shelfTitleVisible
+    },
+    'SET_SHELFCATEGORY':(state,shelfCategory) => {
+      state.shelfCategory = shelfCategory
+    },
+    'SET_CURRENTTYPE':(state,currentType) => {
+      state.currentType = currentType
     }
   },
   actions: {
@@ -163,6 +171,12 @@ export default new Vuex.Store({
     },
     setShelfTitleVisible:({commit},shelfTitleVisible) => {
       return commit('SET_SHELFTITLEVISIBLE',shelfTitleVisible)
+    },
+    setShelfCategory:({commit},shelfCategory) => {
+      return commit('SET_SHELFCATEGORY',shelfCategory)
+    },
+    setCurrentType:({commit},currentType) => {
+      return commit('SET_CURRENTTYPE',currentType)
     }
 
   },

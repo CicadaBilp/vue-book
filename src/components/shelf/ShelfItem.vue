@@ -38,6 +38,7 @@ export default {
         this.data.selected = !this.data.selected
         if(this.data.selected){
           this.shelfSelected.uniquePush(this.data)
+          this.setShelfSelected(this.shelfSelected)
         }else{
           this.setShelfSelected(this.shelfSelected.filter(item => item.id !== this.data.id))
         }
@@ -45,6 +46,12 @@ export default {
         if (this.data.type === 1) {
           this.showBookDetail(this.data);
         } else if (this.data.type === 2) {
+          this.$router.push({
+            path:'/store/category',
+            query:{
+              title:this.data.title
+            }
+          })
         } else {
           gotoStoreHome(this);
         }

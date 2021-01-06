@@ -55,6 +55,10 @@ export default {
       
     },
   },
+  mounted(){
+    console.log(this.btn);
+    console.log(this.title);
+  }
 };
 </script>
 

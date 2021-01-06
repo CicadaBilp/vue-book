@@ -26,6 +26,7 @@ import {
   getLocation,
 } from "../../utils/localStorage";
 import Epub from "epubjs";
+import { getLocalForage } from "../../utils/localForage";
 global.ePub = Epub;
 
 export default {
@@ -38,9 +39,7 @@ export default {
   },
   methods: {
     //该函数,在派发action完成后调用,用来初始化路径下的电子书
-    initEpub() {
-      const url =
-        process.env.VUE_APP_RES_URL + "/epub/" + this.fileName + ".epub";
+    initEpub(url) {
       //根据地址在nginx中访问到epub文件,生成实例
       this.book = new Epub(url);
       //派发action设置vuex中的currentBook
@@ -230,8 +229,8 @@ export default {
     },
     onMaskClick(e) {
       //兼容pc端鼠标下拉操作,当状态值为2或3时不触发点击翻页事件,表示
-      if(this.mouseState && (this.mouseState===2 || this.mouseState===3)){
-        return
+      if (this.mouseState && (this.mouseState === 2 || this.mouseState === 3)) {
+        return;
       }
       const offsetX = e.offsetX;
       const width = window.innerWidth;
@@ -264,7 +263,7 @@ export default {
     //pc端鼠标下拉操作的第一步,鼠标按下
     onMouseEnter(e) {
       this.mouseState = 1;
-      this.mouseStartTime = e.timeStamp
+      this.mouseStartTime = e.timeStamp;
       e.preventDefault();
       e.stopPropagation();
     },
@@ -286,27 +285,40 @@ export default {
     },
     //第三步,鼠标按下移动后松开
     onMouseEnd(e) {
-      if(this.mouseState === 2){
-        this.setOffsetY(0)
-        this.firstOffsetY = null
-        this.mouseState = 3
-      }else{ //离开时当状态不是2,则设为4,表示普通点击
-        this.mouseState = 4
+      if (this.mouseState === 2) {
+        this.setOffsetY(0);
+        this.firstOffsetY = null;
+        this.mouseState = 3;
+      } else {
+        //离开时当状态不是2,则设为4,表示普通点击
+        this.mouseState = 4;
       }
       //判断按下到离开的时间,<200,设为普通点击,可进行翻页
-      const time = e.timeStamp - this.mouseStartTime
-      if(time < 200){
-        this.mouseState = 4
+      const time = e.timeStamp - this.mouseStartTime;
+      if (time < 200) {
+        this.mouseState = 4;
       }
       e.preventDefault();
       e.stopPropagation();
     },
   },
   mounted() {
+    const books = this.$route.params.fileName.split("|");
+    const fileName = books[1];
+    getLocalForage(fileName, (err, blob) => {
+      if (!err && blob) {
+        console.log("找到离线缓存电子书");
+        this.setFileName(books.join('/')).then(() => { this.initEpub(blob) })
+      } else {
+        console.log('没找到离线缓存');
+        this.setFileName(books.join("/")).then(() => {
+            const url = process.env.VUE_APP_RES_URL + "/epub/" + this.fileName + ".epub";
+            this.initEpub(url);
+          }
+        );
+      }
+    });
     //派发一个action,参数为动态路由中传入的参数(电子书在服务器存放的文件位置),以此更改fileName的值,
-    this.setFileName(
-      this.$route.params.fileName.split("|").join("/")
-    ).then(() => this.initEpub());
   },
 };
 </script>
