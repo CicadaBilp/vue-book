@@ -303,6 +303,7 @@ export default {
     },
   },
   mounted() {
+    //进入组件先获取路由传递的参数,去缓存中找,若找到直接解析,找不到去请求这本书
     const books = this.$route.params.fileName.split("|");
     const fileName = books[1];
     getLocalForage(fileName, (err, blob) => {

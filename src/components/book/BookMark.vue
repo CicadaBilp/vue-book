@@ -22,9 +22,9 @@ export default {
   mixins: [bookMixin],
   data() {
     return {
-      text: "",
-      color: "",
-      isFixed: false,
+      text: "",  //下拉时书签组件需要展示的文字
+      color: "",  //传递给书签图形要展示的颜色
+      isFixed: false,  //是否固定定位
     };
   },
   components: { Mark },

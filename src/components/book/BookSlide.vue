@@ -44,9 +44,9 @@ export default {
   mixins: [bookMixin],
   data() {
     return {
-      currentTab: 1,
-      content: BookSlideContentVue,
-      bookmark: BookSlideMark,
+      currentTab: 1,  //默认展示目录模块
+      content: BookSlideContentVue,  //导入目录模块组件
+      bookmark: BookSlideMark,  //导入书签模块组件
     };
   },
   methods: {

@@ -41,7 +41,6 @@ export default {
       const theme = this.themeList[index]
       //将选择的主题存入缓存
       setlocalTheme(this.fileName,theme.name)
-      console.log(theme.name)
       //设置vuex中主题名称为点击的主题名称,并调用方法设置电子书主题为该主题
       this.setDefaultTheme(theme.name).then(() => // this.currentBook.rendition.themes.select(theme.name)
         //调用方法引入主题对应的全局css更改全局主题
@@ -59,7 +58,7 @@ export default {
     position: absolute;
     bottom: px2rem(48);
     left: 0;
-    z-index: 101;
+    z-index: 200;
     width: 100%;
     height: px2rem(90);
     background: white;

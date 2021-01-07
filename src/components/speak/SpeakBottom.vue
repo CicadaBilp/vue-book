@@ -64,10 +64,10 @@
       .bottom-playing-left {
         flex: 0 0 px2rem(70);
         width: px2rem(70);
-        @include center;
+        @include centers;
         .icon-play-wrapper {
           flex: 0 0 px2rem(100);
-          @include center;
+          @include centers;
           &:active {
             opacity: .5;
           }
@@ -105,7 +105,7 @@
       height: px2rem(52);
       border-top: px2rem(1) solid #eee;
       box-sizing: border-box;
-      @include center;
+      @include centers;
       .bottom-btn-text {
         font-size: px2rem(14);
         color: $blue;

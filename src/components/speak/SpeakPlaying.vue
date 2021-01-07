@@ -46,7 +46,7 @@
   @import "../../assets/styles/global";
 
   .playing-item-wrapper {
-    @include center;
+    @include centers;
     .playing-item {
       flex: 0 0 px2rem(2);
       width: px2rem(2);

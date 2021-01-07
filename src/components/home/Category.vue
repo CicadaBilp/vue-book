@@ -29,9 +29,10 @@
       TitleView
     },
     props: {
-      data: Array
+      data: Array  //首页中最后的书籍总分类模块,需要接受一个数组来展示
     },
     methods: {
+      //点击某分类跳转到这个分类下的list页面展示里面的图书
       showBookCategory(item) {
         this.$router.push({
           path: '/store/list',
@@ -44,6 +45,7 @@
       categoryText(category) {
         return categoryText(category, this)
       },
+      //点击查看全部分类和图书跳转到list页面下展示,
       showBookList() {
         this.$router.push('/store/list')
       }

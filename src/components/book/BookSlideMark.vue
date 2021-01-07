@@ -24,10 +24,11 @@ export default {
   components: { Scroll },
   data(){
     return {
-      bookmark:null
+      bookmark:null  //添加的书签
     }
   },
   methods:{
+    //点击书签时渲染指定页内容
     displayBookMark(cfi){
       this.currentBook.rendition.display(cfi).then(() => {
         this.reloadedProgress()
@@ -35,6 +36,7 @@ export default {
     }
   },
   mounted(){
+    //先从缓存中获取这本书的书签
     this.bookmark = getBookMark(this.fileName)
   }
 }

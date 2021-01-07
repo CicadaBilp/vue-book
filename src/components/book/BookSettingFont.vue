@@ -68,7 +68,6 @@ export default {
     },
     //点击字体设置,弹出字体设置组件
     showFontFamily(){
-      console.log('aaaa');
       this.setShowFontFamily(true)
       
     }
@@ -82,7 +81,7 @@ export default {
     position: absolute;
     bottom: px2rem(48); 
     left: 0;
-    z-index: 101;
+    z-index: 200;
     display: flex;
     flex-direction: column;
     width: 100%;

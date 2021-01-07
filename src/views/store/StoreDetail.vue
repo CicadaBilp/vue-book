@@ -66,7 +66,7 @@
       <div class="bottom-btn" @click.stop.prevent="trialListening()">{{$t('detail.listen')}}</div>
       <div class="bottom-btn" @click.stop.prevent="addOrRemoveShelf()">
         <span class="icon-check" v-if="inBookShelf"></span>
-        {{inBookShelf ? $t('detail.isAddedToShelf') : $t('detail.addOrRemoveShelf')}}
+        {{inBookShelf ? '已加入书架' : '加入书架'}}
       </div>
     </div>
     <toast :text="toastText" ref="toast"></toast>
@@ -80,11 +80,17 @@
   import Toast from '../../components/common/Toast'
   import { detail } from '../../api/store'
   import { px2rem, realPx } from '../../utils/util'
+  import {getLocalForage} from '../../utils/localForage'
   import Epub from 'epubjs'
+import { appendShelf, removeAddFromShelf } from '../../utils/store'
+import {storeShelfMixin} from '../../utils/mixin'
+import {setBookShelf} from '../../utils/localStorage'
+
 
   global.ePub = Epub
 
   export default {
+    mixins:[storeShelfMixin],
     components: {
       DetailTitle,
       Scroll,
@@ -122,10 +128,10 @@
         return this.metadata ? this.metadata.creator : ''
       },
       inBookShelf() {
-        if (this.bookItem && this.bookShelf) {
+        if (this.bookItem && this.shelfList) {
           const flatShelf = (function flatten(arr) {
             return [].concat(...arr.map(v => v.itemList ? [v, ...flatten(v.itemList)] : v))
-          })(this.bookShelf).filter(item => item.type === 1)
+          })(this.shelfList).filter(item => item.type === 1)
           const book = flatShelf.filter(item => item.fileName === this.bookItem.fileName)
           return book && book.length > 0
         } else {
@@ -153,6 +159,17 @@
     },
     methods: {
       addOrRemoveShelf() {
+        // console.log(this.bookItem);
+        let book = this.bookItem
+        book['type'] = 1
+        this.getShelfList().then(() => {
+          let list = removeAddFromShelf(this.shelfList)
+          list.push(book)
+          list = appendShelf(list)
+          setBookShelf(list)
+          this.setShelfList(list)
+        })
+        
       },
       showToast(text) {
         this.toastText = text
@@ -164,6 +181,24 @@
         })
       },
       trialListening() {
+        getLocalForage(this.bookItem.fileName , (err ,blob) => {
+          if(!err && blob){
+            this.$router.push({
+              path:'/store/speaking',
+              query:{
+                fileName:this.bookItem.fileName
+              }
+            })
+          }else{
+            this.$router.push({
+              path:'/store/speaking',
+              query:{
+                fileName:this.bookItem.fileName,
+                opf:this.opf
+              }
+            })
+          }
+        })
       },
       read(item) {
         this.$router.push({
@@ -222,6 +257,7 @@
           }).then(response => {
             if (response.status === 200 && response.data.error_code === 0 && response.data.data) {
               const data = response.data.data
+              console.log(data);
               this.bookItem = data
               this.cover = this.bookItem.cover
               let rootFile = data.rootFile

@@ -29,7 +29,7 @@
     components: {
       TitleView
     },
-    props: {
+    props: {      //首页中的精选模块
       data: Array,
       titleVisible: {
         type: Boolean,

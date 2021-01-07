@@ -26,9 +26,10 @@
       TitleView
     },
     props: {
-      data: Object
+      data: Object  //首页中的某分类展示图书模块,需接受该分类对象数据
     },
     methods: {
+      //点击查看全部跳转到list页面下展示该分类的图书
       showBookCategory() {
         this.$router.push({
           path: '/store/list',

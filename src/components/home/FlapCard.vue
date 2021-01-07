@@ -47,17 +47,18 @@ export default {
   mixins: [homeMixin],
   data() {
     return {
-      flapCardList,
-      back: 1,
-      front: 0,
-      runFlapCard:false,
-      runBookCard:false
+      flapCardList,  //卡片信息数组
+      back: 1,  //翻转时背面默认为1
+      front: 0,  //翻转时正面默认为0
+      runFlapCard:false,  //默认不开启卡片翻转
+      runBookCard:false  //默认不开启组件显示时的动画
     };
   },
   props:{
     data:Object
   },
   watch:{
+    //监听是否显示随机推荐组件
     flapCardVisible(f){
       if(f){
         this.runAnimation()

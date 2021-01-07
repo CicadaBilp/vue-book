@@ -86,7 +86,6 @@ export default {
     },
     //点击下一章
     nextChapter(){
-      console.log('aaa');
       console.log(this.section);
       if(this.section < this.currentBook.spine.length-1 && this.bookAvailable){
         this.setSection(this.section + 1).then(() => this.displaySection())
@@ -108,7 +107,7 @@ export default {
     position: absolute;
     bottom: px2rem(48);
     left: 0;
-    z-index: 101;
+    z-index: 200;
     width: 100%;
     height: px2rem(90);
     background: white;

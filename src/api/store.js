@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {setLocalForage} from '../utils/localForage'
 
-//请求首页各种书籍数据(本地服务器)
+//请求mock首页各种书籍数据(本地服务器)
 export function home(){
   return axios({
     method:'get',
@@ -18,21 +18,21 @@ export function detail(book){
     }
   })
 }
-//请求书籍列表数据(本地服务器)
+//请求mock书籍列表数据(本地服务器)
 export function list(){
   return axios({
     method:'get',
     url:`${process.env.VUE_APP_BASE_URL}/book/list`
   })
 }
-
+//从mock中获取书架图书数据
 export function shelf(){
   return axios({
     method:'get',
     url:`${process.env.VUE_APP_BASE_URL}/book/shelf`
   })
 }
-
+//书架页编辑中的离线缓存需要的请求函数
 export function download(book,onSuccess,onFailed,onError,onProgress){
   if(!onProgress){
     onProgress = onError
@@ -58,3 +58,12 @@ export function download(book,onSuccess,onFailed,onError,onProgress){
       if(onError) onError(err)
     })
 }
+
+//speak
+export function flatList() {
+  return axios({
+    method:'get',
+    url:`${process.env.VUE_APP_BOOK_URL}/book/flat-list`
+  })
+}
+

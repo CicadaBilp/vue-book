@@ -80,7 +80,7 @@
       height: px2rem(42);
       font-size: px2rem(16);
       color: #333;
-      @include center;
+      @include centers;
     }
   }
 </style>

@@ -5,9 +5,9 @@
 <script>
 export default {
   props: {
-    width: Number,
-    height: Number,
-    color: String,
+    width: Number,  //传入书签宽度
+    height: Number,  //传入书签高度
+    color: String,  //传入书签要展示的颜色
   },
   computed: {
     style() {

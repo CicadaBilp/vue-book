@@ -207,7 +207,7 @@
         height: px2rem(40);
         color: #ccc;
         font-size: px2rem(40);
-        @include center;
+        @include centers;
       }
       .card-title-wrapper {
         width: 100%;
@@ -270,7 +270,7 @@
         .progress-wrapper {
           flex: 1;
           width: 100%;
-          @include center;
+          @include centers;
           padding: 0 px2rem(30);
           box-sizing: border-box;
           .progress {
@@ -315,7 +315,7 @@
       .playing-wrapper {
         width: 100%;
         height: px2rem(60);
-        @include center;
+        @include centers;
         .icon-settings-wrapper {
           flex: 1;
           @include columnCenter;
@@ -336,12 +336,12 @@
             opacity: .5;
           }
           &.not-use {
-            // color: $blue-transparent;
+            color: $blue-transparent;
           }
         }
         .icon-play-wrapper {
           flex: 0 0 px2rem(100);
-          @include center;
+          @include centers;
           &:active {
             opacity: .5;
           }
@@ -361,7 +361,7 @@
             opacity: .5;
           }
           &.not-use {
-            // color: $blue-transparent;
+            color: $blue-transparent;
           }
         }
         .icon-clock-wrapper {
@@ -382,14 +382,14 @@
         width: 100%;
         height: px2rem(20);
         font-size: px2rem(10);
-        // color: $color-green;
-        @include center;
+        color: $color-green;
+        @include centers;
       }
       .read-title-wrapper {
         width: 100%;
         height: px2rem(24);
         box-sizing: border-box;
-        @include center;
+        @include centers;
         .line {
           flex: 1;
           border-top: px2rem(1) solid #eee;

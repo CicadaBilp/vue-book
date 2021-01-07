@@ -75,7 +75,6 @@ export default {
     home().then(res => {
       if(res && res.status === 200){
         const data = res.data
-        console.log(data);
         const resIndex = Math.floor(Math.random() * data.random.length)
         this.random = data.random[resIndex]
         this.banner = data.banner
