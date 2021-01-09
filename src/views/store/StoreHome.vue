@@ -50,7 +50,7 @@ export default {
     return{
       scrollTop:88,  //首页滚动组件上方距离
       random:null,  //随机推荐的一本书对象
-      banner:null,   //图片地址
+      banner:'',   //图片地址
       guessYouLike:null,  //猜你喜欢组件需要的书籍数据
       recommend:null,  //推荐组件需要的书籍数据
       featured:null,  //精选组件需要的书籍数据

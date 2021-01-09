@@ -82,7 +82,7 @@
   import { px2rem, realPx } from '../../utils/util'
   import {getLocalForage} from '../../utils/localForage'
   import Epub from 'epubjs'
-import { appendShelf, removeAddFromShelf } from '../../utils/store'
+import { appendShelf, computId, removeAddFromShelf } from '../../utils/store'
 import {storeShelfMixin} from '../../utils/mixin'
 import {setBookShelf} from '../../utils/localStorage'
 
@@ -165,6 +165,7 @@ import {setBookShelf} from '../../utils/localStorage'
         this.getShelfList().then(() => {
           let list = removeAddFromShelf(this.shelfList)
           list.push(book)
+          list = computId(list)
           list = appendShelf(list)
           setBookShelf(list)
           this.setShelfList(list)
@@ -257,7 +258,6 @@ import {setBookShelf} from '../../utils/localStorage'
           }).then(response => {
             if (response.status === 200 && response.data.error_code === 0 && response.data.data) {
               const data = response.data.data
-              console.log(data);
               this.bookItem = data
               this.cover = this.bookItem.cover
               let rootFile = data.rootFile

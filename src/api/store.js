@@ -27,6 +27,7 @@ export function list(){
 }
 //从mock中获取书架图书数据
 export function shelf(){
+  console.log('shelf被调用');
   return axios({
     method:'get',
     url:`${process.env.VUE_APP_BASE_URL}/book/shelf`

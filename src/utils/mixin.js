@@ -133,6 +133,7 @@ export const homeMixin = {
       'setFlapCard'
     ]),
     showBookDetail(book) {
+      this.setFlapCard(false)
       this.$router.push({
         path: '/store/detail',
         query: {
@@ -178,6 +179,7 @@ export const storeShelfMixin = {
     //获取书架全部图书
     getShelfList() {
       let shelfList = getBookshelf();
+      console.log('getshelfList被调用');
       if (!shelfList) {
         shelf().then((res) => {
           console.log(res);

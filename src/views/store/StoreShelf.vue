@@ -53,6 +53,7 @@ export default {
     },
   },
   mounted() {
+    console.log('shelf的mounted被调用');
     this.getShelfList();
     this.setShelfCategory([])
     this.setCurrentType(1)
