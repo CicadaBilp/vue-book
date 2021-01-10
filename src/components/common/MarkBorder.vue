@@ -1,5 +1,5 @@
 <template>
-  <div class="mark" :style="style"></div>
+  <div class="mark-border" :style="style"></div>
 </template>
 
 <script>
@@ -33,7 +33,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../../assets/styles/global.scss";
-.mark {
+.mark-border {
   width: 0;
   height: 0;
   border-width: px2rem(25) px2rem(10) px2rem(10) px2rem(10);

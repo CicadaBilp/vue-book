@@ -7,7 +7,7 @@
       <div class="book-mark-text">{{ text }}</div>
     </div>
     <div class="book-mark-icon-wrapper" :style="isFixed ? fixedStyle : ''">
-      <mark :color="color"></mark>
+      <mark-border :color="color"></mark-border>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 import { bookMixin } from "../../utils/mixin";
 import { realPx, px2rem } from "../../utils/util";
 import { getBookMark, setBookMark } from "../../utils/localStorage";
-import Mark from "../common/Mark.vue";
+import MarkBorder from '../common/MarkBorder.vue';
 const COLOR = "chocolate";
 export default {
   mixins: [bookMixin],
@@ -27,7 +27,7 @@ export default {
       isFixed: false,  //是否固定定位
     };
   },
-  components: { Mark },
+  components: { MarkBorder },
   watch: {
     offsetY(v) {
       //状态2:下拉距离在组件高度与临界值之前,组件top应随offsetY改变
