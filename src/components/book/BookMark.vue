@@ -7,7 +7,7 @@
       <div class="book-mark-text">{{ text }}</div>
     </div>
     <div class="book-mark-icon-wrapper" :style="isFixed ? fixedStyle : ''">
-      <Mark :color="color" />
+      <mark :color="color"></mark>
     </div>
   </div>
 </template>
